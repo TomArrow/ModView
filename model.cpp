@@ -1041,7 +1041,7 @@ static int SortSequenceBy_Alpha(const void *elem1, const void *elem2)
 {
 	Sequence_t *pSeq1 = *(Sequence_t**)elem1;
 	Sequence_t *pSeq2 = *(Sequence_t**)elem2;
-	return stricmp(pSeq1->sName, pSeq2->sName);
+	return _stricmp(pSeq1->sName, pSeq2->sName);
 }
 
 static int SortSequenceBy_FrameNum(const void *elem1, const void *elem2)
@@ -1868,7 +1868,7 @@ int Model_GetBoltIndex( ModelContainer_t *pContainer, LPCSTR psBoltName, bool bB
 		//
 		for (int i=0; i<(bBoltIsBone?pContainer->iBoneBolt_MaxBoltPoints:pContainer->iSurfaceBolt_MaxBoltPoints); i++)
 		{
-			if (!stricmp(Model_GetBoltName( pContainer, i, bBoltIsBone), psBoltName ))
+			if (!_stricmp(Model_GetBoltName( pContainer, i, bBoltIsBone), psBoltName ))
 				return i;
 		}
 	
@@ -1883,7 +1883,7 @@ int Model_GetBoltIndex( ModelContainer_t *pContainer, LPCSTR psBoltName, bool bB
 				{
 					string strAliasName = (*it).second;
 
-					if (!stricmp(strAliasName.c_str(), psBoltName))
+					if (!_stricmp(strAliasName.c_str(), psBoltName))
 					{
 						string strRealName = (*it).first;
 						bAlreadyHere = true;
@@ -1998,7 +1998,7 @@ bool Model_GLMSurface_SetStatus( ModelHandle_t hModel, LPCSTR psSurfaceName, Sur
 			//
 			for (int iSurface=0; iSurface<pContainer->iNumSurfaces; iSurface++)
 			{
-				if (!stricmp(psSurfaceName, pContainer->pModelGetSurfaceNameFunction( pContainer->hModel, iSurface )))
+				if (!_stricmp(psSurfaceName, pContainer->pModelGetSurfaceNameFunction( pContainer->hModel, iSurface )))
 				{
 					return Model_GLMSurface_SetStatus( pContainer->hModel, iSurface, eStatus);
 				}
@@ -2075,7 +2075,7 @@ static bool Model_SurfaceIsDifferentFromDefault(ModelContainer_t *pContainer, Su
 			
 		if (psSurfaceName)	// problems if we don't have this of course, but errormessaged already
 		{
-			bool bSurfaceNameIncludesOFF = !stricmp("_off", &psSurfaceName[strlen(psSurfaceName)-4]);
+			bool bSurfaceNameIncludesOFF = !_stricmp("_off", &psSurfaceName[strlen(psSurfaceName)-4]);
 
 			switch (eThisStatus)
 			{
@@ -4320,7 +4320,7 @@ int Model_Sequence_IndexForName(ModelContainer_t *pContainer, LPCSTR psSeqName)
 {
 	for (int iSeq=0; iSeq<pContainer->SequenceList.size(); iSeq++)
 	{
-		if (!stricmp(pContainer->SequenceList[iSeq].sName, psSeqName))
+		if (!_stricmp(pContainer->SequenceList[iSeq].sName, psSeqName))
 			return iSeq;
 	}
 
@@ -4364,7 +4364,7 @@ bool Model_Sequence_Lock( ModelHandle_t hModel, LPCSTR psSequenceName, bool bPri
 
 	for (int i=0; i<iTotSequences; i++)
 	{
-		if (!stricmp(Model_Sequence_GetName	( hModel, i), psSequenceName))
+		if (!_stricmp(Model_Sequence_GetName	( hModel, i), psSequenceName))
 			return Model_Sequence_Lock( hModel, i, bPrimary);
 	}
 
@@ -4677,7 +4677,7 @@ bool Model_SetSurfaceHighlight(ModelHandle_t hModel, LPCSTR psSurfaceName)
 		//
 		for (int iSurface=0; iSurface<pContainer->iNumSurfaces; iSurface++)
 		{
-			if (!stricmp(psSurfaceName, pContainer->pModelGetSurfaceNameFunction( hModel, iSurface )))
+			if (!_stricmp(psSurfaceName, pContainer->pModelGetSurfaceNameFunction( hModel, iSurface )))
 			{
 				Model_SetSurfaceHighlight(hModel, iSurface);
 				return true;
@@ -4721,7 +4721,7 @@ int ModelContainer_BoneIndexFromName(ModelContainer_t *pContainer, LPCSTR psBone
 	//
 	for (iBone=0; iBone<pContainer->iNumBones; iBone++)
 	{
-		if (!stricmp(psBoneName, pContainer->pModelGetBoneNameFunction( pContainer->hModel, iBone )))
+		if (!_stricmp(psBoneName, pContainer->pModelGetBoneNameFunction( pContainer->hModel, iBone )))
 		{
 			return iBone;
 		}
@@ -4744,7 +4744,7 @@ int ModelContainer_BoneIndexFromName(ModelContainer_t *pContainer, LPCSTR psBone
 			CString strBoneName_Real (((*it).first).c_str());
 			CString strBoneName_Alias(((*it).second).c_str());
 
-			if (!stricmp(((*it).second).c_str(), psBoneName))	// bone name arg matches this alias?
+			if (!_stricmp(((*it).second).c_str(), psBoneName))	// bone name arg matches this alias?
 			{
 				bAlreadyHere = true;
 				iBone = ModelContainer_BoneIndexFromName(pContainer, ((*it).first).c_str());	// pass real bone name
@@ -4765,7 +4765,7 @@ int ModelContainer_BoneIndexFromName(ModelContainer_t *pContainer, LPCSTR psBone
 
 			if (ModelContainer_GetBoneAliasPair(pContainer, i, strBoneNameReal, strBoneNameAlias))
 			{
-				if (!stricmp(strBoneNameAlias.c_str(), psBoneName))
+				if (!_stricmp(strBoneNameAlias.c_str(), psBoneName))
 				{
 					bAlreadyHere = true;
 					iBone = ModelContainer_BoneIndexFromName(pContainer, strBoneNameReal.c_str());	// pass real bone name
@@ -5007,7 +5007,7 @@ bool Model_SetG2SurfaceRootOverride	(ModelContainer_t *pContainer, LPCSTR psSurf
 	{
 		LPCSTR psScannedSurfaceName = Model_GetSurfaceName( pContainer, iSurface );
 
-		if (!stricmp(psScannedSurfaceName,psSurfaceName))
+		if (!_stricmp(psScannedSurfaceName,psSurfaceName))
 		{
 			Model_SetG2SurfaceRootOverride(pContainer, iSurface);
 			return true;

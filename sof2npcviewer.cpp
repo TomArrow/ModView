@@ -120,7 +120,7 @@ BOOL CSOF2NPCViewer::OnInitDialog()
 
 	// my machine only... :-)
 	//
-//	GetDlgItem(IDGALLERY)->EnableWindow(!stricmp(scGetUserName(),"scork"));	
+//	GetDlgItem(IDGALLERY)->EnableWindow(!_stricmp(scGetUserName(),"scork"));	
 	
 	return TRUE;  // return TRUE unless you set the focus to a control
 	              // EXCEPTION: OCX Property Pages should return FALSE
@@ -648,23 +648,23 @@ static bool NPC_ParseNPCFiles(void)
 								string strKey	= pValue->GetName();
 								string strValue = pValue->GetTopValue();
 
-								if (!stricmp(strKey.c_str(), sKEYWORD_NPC_NAME))
+								if (!_stricmp(strKey.c_str(), sKEYWORD_NPC_NAME))
 								{								
 									//OutputDebugString(va("%s\n",strValue.c_str()));
 									CharacterTemplate.strName = strValue;
 								}
 								else
-								if (!stricmp(strKey.c_str(), sKEYWORD_NPC_MODEL))
+								if (!_stricmp(strKey.c_str(), sKEYWORD_NPC_MODEL))
 								{								
 									CharacterTemplate.strModel = strValue;
 								}
 								else
-								if (!stricmp(strKey.c_str(), sKEYWORD_NPC_COMMENTS))
+								if (!_stricmp(strKey.c_str(), sKEYWORD_NPC_COMMENTS))
 								{								
 									CharacterTemplate.strComments = strValue;
 								}
 								else
-								if (!stricmp(strKey.c_str(), sKEYWORD_NPC_SKINFILE))
+								if (!_stricmp(strKey.c_str(), sKEYWORD_NPC_SKINFILE))
 								{								
 									NPC_Skin_t	Skin;
 												Skin.strFile = strValue;								
@@ -807,7 +807,7 @@ static void BOT_ScanSkins(BOTFile_t &Bot, set <string> &SkinVariants)
 		{
 			CString strThisFile( Filename_WithoutExt(ppsFiles[i]) );
 
-			if (!strnicmp(strThisFile,"model_",6))
+			if (!_strnicmp(strThisFile,"model_",6))
 			{
 				string s = (LPCSTR)(strThisFile.Mid(6));
 				SkinVariants.insert(s);
@@ -885,7 +885,7 @@ void CSOF2NPCViewer::BOT_ScanFiles(bool bForceRefresh)
 
 					if (!strLine.IsEmpty())
 					{
-						if (!strnicmp(strLine,"name", 4))
+						if (!_strnicmp(strLine,"name", 4))
 						{
 							CString str(strLine.Mid(4));
 									str.TrimLeft();
@@ -901,7 +901,7 @@ void CSOF2NPCViewer::BOT_ScanFiles(bool bForceRefresh)
 							//OutputDebugString(va("Bot name: \"%s\"\n",(LPCSTR) str));
 						}
 						else
-						if (!strnicmp(strLine,"model",5))
+						if (!_strnicmp(strLine,"model",5))
 						{
 							CString str(strLine.Mid(5));
 									str.TrimLeft();
@@ -911,14 +911,14 @@ void CSOF2NPCViewer::BOT_ScanFiles(bool bForceRefresh)
 							//OutputDebugString(va("Bot model: \"%s\"\n",(LPCSTR) str));
 						}
 						else
-						if (!strnicmp(strLine,"color1",6))
+						if (!_strnicmp(strLine,"color1",6))
 						{
 							Bot.iColor1 = atoi(&((LPCSTR)strLine)[6]);
 
 							//OutputDebugString(va("Bot color1: %d\n",Bot.iColor1));
 						}
 						else
-						if (!strnicmp(strLine,"//",2))
+						if (!_strnicmp(strLine,"//",2))
 						{
 							CString str( strLine.Mid(2) );
 									str.TrimLeft();

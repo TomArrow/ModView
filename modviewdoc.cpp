@@ -147,7 +147,7 @@ BOOL CModViewDoc::OnOpenDocument(LPCTSTR lpszPathName)
 
 	// check for script file first...
 	//
-	if (lpszPathName && !stricmp(&lpszPathName[strlen(lpszPathName)-4],".mvs"))
+	if (lpszPathName && !_stricmp(&lpszPathName[strlen(lpszPathName)-4],".mvs"))
 	{
 		Script_Read(lpszPathName);				// this will recurse back into this function
 		SetPathName(lpszPathName, true);		// add script file to MRU

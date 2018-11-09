@@ -43,7 +43,7 @@ void SetQdirFromPath( const char *path )
 		}
 	}		
 
-	if (stricmp(prevQdir,qdir))
+	if (_stricmp(prevQdir,qdir))
 	{
 		extern void Media_Delete(void);
 		Media_Delete();
@@ -81,7 +81,7 @@ static bool SetQdirFromPath2( const char *path, const char *psBaseDir )
 		{
 			int i;
 			
-			if (!strnicmp (c, psBaseDir, len)
+			if (!_strnicmp (c, psBaseDir, len)
 				&& 
 				(*(c-1) == '/' || *(c-1) == '\\')	// would be more efficient to do this first, but only checking after a strncasecmp ok ensures no invalid pointer-1 access
 				)
@@ -318,7 +318,7 @@ char *String_ToLower(LPCSTR psString)
 	static char sString[MAX_PATH];
 
 	strcpy(sString,psString);
-	return strlwr(sString);	
+	return _strlwr(sString);	
 
 }
 
@@ -329,7 +329,7 @@ char *String_ToUpper(LPCSTR psString)
 	static char sString[MAX_PATH];
 
 	strcpy(sString,psString);
-	return strupr(sString);	
+	return _strupr(sString);	
 
 }
 
@@ -345,7 +345,7 @@ char *String_ForwardSlash(LPCSTR psString)
 		*p = '/';
 	}
 
-	return strlwr(sString);	
+	return _strlwr(sString);	
 }
 
 

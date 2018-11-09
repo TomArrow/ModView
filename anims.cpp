@@ -50,7 +50,7 @@ bool Anims_ReadFile_FRAMES(ModelContainer_t *pContainer, LPCSTR psLocalFilename_
 			}
 
 			sLine[sizeof(sLine)-1]='\0';
-			strlwr(sLine);
+			_strlwr(sLine);
 
 			// :-)
 			CString str(sLine);
@@ -69,7 +69,7 @@ bool Anims_ReadFile_FRAMES(ModelContainer_t *pContainer, LPCSTR psLocalFilename_
 				        Sequence.sNameWithPath[sizeof(Sequence.sNameWithPath)-1]='\0';
 			}
 			else
-			if (strnicmp(sLine,"startframe",strlen("startframe"))==0)
+			if (_strnicmp(sLine,"startframe",strlen("startframe"))==0)
 			{
 				CString str(&sLine[strlen("startframe")]);
 						str.Replace("\"","");
@@ -78,7 +78,7 @@ bool Anims_ReadFile_FRAMES(ModelContainer_t *pContainer, LPCSTR psLocalFilename_
 				bStartFrameRead = true;
 			}
 			else
-			if (strnicmp(sLine,"duration",strlen("duration"))==0)
+			if (_strnicmp(sLine,"duration",strlen("duration"))==0)
 			{
 				CString str(&sLine[strlen("duration")]);
 						str.Replace("\"","");
@@ -87,7 +87,7 @@ bool Anims_ReadFile_FRAMES(ModelContainer_t *pContainer, LPCSTR psLocalFilename_
 				bDurationRead = true;
 			}
 			else
-			if (strnicmp(sLine,"fps",strlen("fps"))==0)
+			if (_strnicmp(sLine,"fps",strlen("fps"))==0)
 			{
 				CString str(&sLine[strlen("fps")]);
 						str.Replace("\"","");
@@ -186,16 +186,16 @@ static bool LoadAnimationCFG(LPCSTR psFullPath, ModelContainer_t *pContainer, FI
 			//
 			// our cfg files don't have "sex" (how depressingly apt...)
 			//
-			if (strnicmp(sLineBuffer,"sex",3)==0)
+			if (_strnicmp(sLineBuffer,"sex",3)==0)
 				continue;
 			//
 			// or this other crap either...
 			//
-			if (strnicmp(sLineBuffer,"footsteps",9)==0)
+			if (_strnicmp(sLineBuffer,"footsteps",9)==0)
 				continue;
-			if (strnicmp(sLineBuffer,"headoffset",10)==0)
+			if (_strnicmp(sLineBuffer,"headoffset",10)==0)
 				continue;
-			if (strnicmp(sLineBuffer,"soundpath",9)==0)
+			if (_strnicmp(sLineBuffer,"soundpath",9)==0)
 				continue;
 
 			Sequence_t seq;
@@ -242,11 +242,11 @@ static bool LoadAnimationCFG(LPCSTR psFullPath, ModelContainer_t *pContainer, FI
 
 						// now do the folding number stuff since ID don't do it in their files...
 						//
-						if ( !strnicmp(sLine,"TORSO_",6) && iFirstFrameAfterBoth == -1)
+						if ( !_strnicmp(sLine,"TORSO_",6) && iFirstFrameAfterBoth == -1)
 						{
 							iFirstFrameAfterBoth = seq.iStartFrame;
 						}
-						if ( !strnicmp(sLine,"LEGS_",5))
+						if ( !_strnicmp(sLine,"LEGS_",5))
 						{
 							if (iFirstFrameAfterTorso == -1)
 							{

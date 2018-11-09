@@ -296,7 +296,7 @@ static char *FindShaderInShaderText( const char *shadername ) {
 	for (i = 0; shaderTextHashTable[hash][i]; i++) {
 		p = shaderTextHashTable[hash][i];
 		token = COM_ParseExt(&p, qtrue);
-		if ( !Q_stricmp( token, shadername ) ) {
+		if ( !Q__stricmp( token, shadername ) ) {
 			return p;
 		}
 	}
@@ -316,7 +316,7 @@ static char *FindShaderInShaderText( const char *shadername ) {
 			break;
 		}
 
-		if ( !Q_stricmp( token, shadername ) ) {
+		if ( !Q__stricmp( token, shadername ) ) {
 			return p;
 		}
 		else {
@@ -629,7 +629,7 @@ const char *R_FindShader( const char *psLocalMaterialName)
 	}
 */
 	COM_StripExtension( psLocalMaterialName, strippedName );
-	strlwr(strippedName);
+	_strlwr(strippedName);
 
 	ShadersFoundAndFilesPicked_t::iterator it = ShadersFoundAndFilesPicked.find(strippedName);
 	if (it != ShadersFoundAndFilesPicked.end())

@@ -505,7 +505,7 @@ static void SetTreeItemSurfaceState( HTREEITEM hTreeItem, bool bOnOff, bool bDef
 	{
 		LPCSTR psSurfaceName = GLMModel_GetSurfaceName( TreeItemData.iModelHandle, TreeItemData.iItemNumber );
 
-		bool bSurfaceNameIncludesOFF = !stricmp("_off", &psSurfaceName[strlen(psSurfaceName)-4]);
+		bool bSurfaceNameIncludesOFF = !_stricmp("_off", &psSurfaceName[strlen(psSurfaceName)-4]);
 
 		if (bDefaultAll || bSurfaceNameIncludesOFF)
 		{

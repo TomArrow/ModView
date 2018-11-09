@@ -611,7 +611,7 @@ ModelHandle_t RE_RegisterModel( const char *name ) {
 		char filename[1024];
 
 		strcpy( filename, name );
-		strlwr( filename );	// for bin map<> cacheing to work
+		_strlwr( filename );	// for bin map<> cacheing to work
 
 		if ( lod != 0 ) {
 			char namebuf[80];
@@ -848,7 +848,7 @@ static qboolean R_LoadMD3 (model_t *mod, int lod, void *buffer, const char *mod_
 		surf->ident = SF_MD3;
 
 		// lowercase the surface name so skin compares are faster
-		Q_strlwr( surf->name );
+		_strlwr( surf->name );
 
 		// strip off a trailing _1 or _2
 		// this is a crutch for q3data being a mess

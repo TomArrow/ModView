@@ -462,7 +462,7 @@ extern refimport_t ri;
 //////////////////////////////////////////////////////////
 //
 // some crap for compile-ease...
-#define Q_stricmp	stricmp
+#define Q__stricmp	_stricmp
 #define Q_strlwr	strlwr
 #define LittleLong(x) x
 #define LittleShort(x) x

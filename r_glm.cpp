@@ -533,7 +533,7 @@ qboolean G2_SetSurfaceOnOff (qhandle_t model, surfaceInfo_t *slist, const char *
 		surfInfo = (mdxmSurfHierarchy_t *)((byte *)surfIndexes + surfIndexes->offsets[surf->thisSurfaceIndex]);
 
   		// same name as one already in?
-		if (!stricmp (surfInfo->name, surfaceName))
+		if (!_stricmp (surfInfo->name, surfaceName))
 		{
 			assert(surface == i);
 			// set descendants value
@@ -603,7 +603,7 @@ void G2_GetSurfaceList (qhandle_t model, surfaceInfo_t *slist)
 		mdxmSurface_t *surface = (mdxmSurface_t *) ((byte*)pLODSurfOffset +  pLODSurfOffset->offsets[i]);
 //		OutputDebugString(va("Master surface list %d/%d: '%s'\n",i,mod->mdxm->numSurfaces,surf->name));
 		// if we have the word "_off_" in the name, then we want it off to begin with
-	 	if (!stricmp("_off", &surf->name[strlen(surf->name)-4]))
+	 	if (!_stricmp("_off", &surf->name[strlen(surf->name)-4]))
 	 	{
 			G2_SetSurfaceOnOff(model, slist, surf->name, SURF_OFF, i);
 		}
@@ -648,7 +648,7 @@ SurfaceOnOff_t G2_IsSurfaceOff (qhandle_t model, surfaceInfo_t *slist, const cha
 		surfInfo = (mdxmSurfHierarchy_t *)((byte *)surfIndexes + surfIndexes->offsets[surf->thisSurfaceIndex]);
 
 		// same name as one already in?
-		if (!stricmp (surfInfo->name, surfaceName))
+		if (!_stricmp (surfInfo->name, surfaceName))
 		{
 			// if this surface is root or OFF+NO DESCENDANTS, then just return it, else if it's OFF or ON, then for
 			//	100% accuracy we should really check the ancestors to see if we're inherently off because of 
@@ -682,7 +682,7 @@ SurfaceOnOff_t G2_IsSurfaceOff (qhandle_t model, surfaceInfo_t *slist, const cha
 					surf = mod->mdxmsurf[0][slist[i].surface];
 					surfInfo = (mdxmSurfHierarchy_t *)((byte *)surfIndexes + surfIndexes->offsets[surf->thisSurfaceIndex]);
 
-					if (!stricmp (surfInfo->name, surfaceName))
+					if (!_stricmp (surfInfo->name, surfaceName))
 						break;
 				}
 			}
@@ -720,7 +720,7 @@ int G2_Find_Bone(const model_t *mod, boneInfo_t *blist, const char *boneName)
 		skel = (mdxaSkel_t *)((byte *)mod->mdxa + sizeof(mdxaHeader_t) + offsets->offsets[blist[i].boneNumber]);
 
 		// if name is the same, we found it
-		if (!stricmp(skel->name, boneName))
+		if (!_stricmp(skel->name, boneName))
 		{
 			return i;
 		}
@@ -747,7 +747,7 @@ int G2_Add_Bone (const model_t *mod, boneInfo_t *blist, const char *boneName)
 		{
 			skel = (mdxaSkel_t *)((byte *)mod->mdxa + sizeof(mdxaHeader_t) + offsets->offsets[blist[i].boneNumber]);
 			// if name is the same, we found it
-			if (!stricmp(skel->name, boneName))
+			if (!_stricmp(skel->name, boneName))
 			{
 				return i;
 			}
@@ -762,7 +762,7 @@ int G2_Add_Bone (const model_t *mod, boneInfo_t *blist, const char *boneName)
 			skel = (mdxaSkel_t *)((byte *)mod->mdxa + sizeof(mdxaHeader_t) + offsets->offsets[x]);
 
 			// if name is the same, we found it
-			if (!stricmp(skel->name, boneName))
+			if (!_stricmp(skel->name, boneName))
 			{
 				blist[i].flags = 0;
 				blist[i].boneNumber = x;
@@ -1590,11 +1590,11 @@ void G2_ConstructUsedBoneList(surfaceInfo_t *slist, int *boneUsedList, trRefEnti
 /*
 	OutputDebugString(va("G2_ConstructUsedBoneList(): Surface %s\n",surfInfo->name));
 
-	if (stricmp(surfInfo->name,"stupidtriangle_off")==0)
+	if (_stricmp(surfInfo->name,"stupidtriangle_off")==0)
 	{
 		int z=1;
 	}
-	if (stricmp(surfInfo->name,"head_side")==0)
+	if (_stricmp(surfInfo->name,"head_side")==0)
 	{
 		int z=1;
 	}

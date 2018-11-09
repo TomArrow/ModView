@@ -1067,7 +1067,7 @@ void R_LoadImage2( const char *name, byte **pic, int *width, int *height ) {
 	char *psExt = const_cast<char*>( strstr( name, "." ) );
 	strcpy(g_sImageExtension,psExt?psExt:"");
 
-	if ( !Q_stricmp( name+len-4, ".tga" ) ) {
+	if ( !Q__stricmp( name+len-4, ".tga" ) ) {
 	  LoadTGA( name, pic, width, height );            // try tga first
     if (!*pic) {                                    //
 		  char altname[MAX_QPATH];                      // try jpg in place of tga 
@@ -1079,13 +1079,13 @@ void R_LoadImage2( const char *name, byte **pic, int *width, int *height ) {
 			LoadJPG( altname, pic, width, height );
 			strcpy(g_sImageExtension,".jpg");
 		}
-  } else if ( !Q_stricmp(name+len-4, ".pcx") ) {
+  } else if ( !Q__stricmp(name+len-4, ".pcx") ) {
     LoadPCX32( name, pic, width, height );
-	} else if ( !Q_stricmp( name+len-4, ".bmp" ) ) {
+	} else if ( !Q__stricmp( name+len-4, ".bmp" ) ) {
 		LoadBMP( name, pic, width, height );
-	} else if ( !Q_stricmp( name+len-4, ".jpg" ) ) {
+	} else if ( !Q__stricmp( name+len-4, ".jpg" ) ) {
 		LoadJPG( name, pic, width, height );
-	} else if ( !Q_stricmp( name+len-4, ".png" ) ) {
+	} else if ( !Q__stricmp( name+len-4, ".png" ) ) {
 		LoadPNG32(name, pic , width, height, NULL);
 	}
 }
@@ -1171,7 +1171,7 @@ void R_LoadImage( const char *name, byte **pic, int *width, int *height )
 {
 	// only attempt load if not the special case...
 	//
-	if (stricmp(name,"[NoMaterial]"))	
+	if (_stricmp(name,"[NoMaterial]"))	
 	{
 		// thanks, Jake...  <sigh>
 		//

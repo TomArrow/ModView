@@ -365,17 +365,17 @@ static bool HandleCommands(LPCSTR psString, byte *pbCommandData, int iCommandDat
 
 		bool bSuccess = false;
 
-		if (!stricmp(psArg,"#aliased"))
+		if (!_stricmp(psArg,"#aliased"))
 		{
 			bSuccess = Model_SetBoneHighlight(hModel, iITEMHIGHLIGHT_ALIASED);
 		}
 		else
-		if (!stricmp(psArg,"#all"))
+		if (!_stricmp(psArg,"#all"))
 		{
 			bSuccess = Model_SetBoneHighlight(hModel, iITEMHIGHLIGHT_ALL);
 		}
 		else
-		if (!stricmp(psArg,"#none"))
+		if (!_stricmp(psArg,"#none"))
 		{
 			bSuccess = Model_SetBoneHighlight(hModel, iITEMHIGHLIGHT_NONE);
 		}
@@ -404,17 +404,17 @@ static bool HandleCommands(LPCSTR psString, byte *pbCommandData, int iCommandDat
 
 		bool bSuccess = false;
 
-		if (!stricmp(psArg,"#tags"))
+		if (!_stricmp(psArg,"#tags"))
 		{
 			bSuccess = Model_SetSurfaceHighlight(hModel, iITEMHIGHLIGHT_ALL_TAGSURFACES);
 		}
 		else
-		if (!stricmp(psArg,"#all"))
+		if (!_stricmp(psArg,"#all"))
 		{
 			bSuccess = Model_SetSurfaceHighlight(hModel, iITEMHIGHLIGHT_ALL);
 		}
 		else
-		if (!stricmp(psArg,"#none"))
+		if (!_stricmp(psArg,"#none"))
 		{
 			bSuccess = Model_SetSurfaceHighlight(hModel, iITEMHIGHLIGHT_NONE);
 		}

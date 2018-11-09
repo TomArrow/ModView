@@ -844,7 +844,7 @@ static LPCSTR GLMModel_Info( ModelHandle_t hModel )
 			iNumTagSurfaces++;
 
 		LPCSTR psSurfaceName = GLMModel_GetSurfaceName( hModel, i);
-		if (!stricmp("_off",&psSurfaceName[strlen(psSurfaceName)-4]))
+		if (!_stricmp("_off",&psSurfaceName[strlen(psSurfaceName)-4]))
 			iNumOFFSurfaces++;
 	}
 
@@ -902,7 +902,7 @@ static LPCSTR GLMModel_Info( ModelHandle_t hModel )
 			{
 				TextureHandle_t hTexture		= TextureHandle_ForName( psLocalTexturePath );
 				GLuint			uiBind			= (hTexture == -1)?0:Texture_GetGLBind( hTexture );
-				bFound = (uiBind||!stricmp(psShaderName,"[NoMaterial]"));			
+				bFound = (uiBind||!_stricmp(psShaderName,"[NoMaterial]"));			
 			}
 			str += va("     %s%s\n",String_EnsureMinLength(psShaderName[0]?psShaderName:"<blank>",16/*arb*/),(!bFound)?"\t(Not Found)":"");
 		}

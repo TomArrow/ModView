@@ -211,7 +211,7 @@ void Sys_ListFilteredFiles( const char *basedir, char *subdirs, char *filter, ch
 
 	do {
 		if (findinfo.attrib & _A_SUBDIR) {
-			if (Q_stricmp(findinfo.name, ".") && Q_stricmp(findinfo.name, "..")) {
+			if (Q__stricmp(findinfo.name, ".") && Q__stricmp(findinfo.name, "..")) {
 				if (strlen(subdirs)) {
 					Com_sprintf( newsubdirs, sizeof(newsubdirs), "%s\\%s", subdirs, findinfo.name);
 				}

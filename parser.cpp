@@ -57,7 +57,7 @@ bool Parser_Load(LPCSTR psFullPathedFilename, MappedString_t &ParsedAliases)
 				{
 					if (strlen(sLine))	// found any kind of header?
 					{
-						if (!stricmp(sLine,"Alias"))
+						if (!_stricmp(sLine,"Alias"))
 						{							
 							bParsingBlock = true;						
 						}
@@ -72,10 +72,10 @@ bool Parser_Load(LPCSTR psFullPathedFilename, MappedString_t &ParsedAliases)
 				}
 				else
 				{
-					if (!stricmp(sLine,"{"))
+					if (!_stricmp(sLine,"{"))
 						continue;
 
-					if (!stricmp(sLine,"}"))
+					if (!_stricmp(sLine,"}"))
 					{
 						bParsingBlock = false;
 						continue;
@@ -118,7 +118,7 @@ bool Parser_Load(LPCSTR psFullPathedFilename, MappedString_t &ParsedAliases)
 			{
 				// skip to close brace...
 				//
-				if (stricmp(sLine,"}"))
+				if (_stricmp(sLine,"}"))
 					continue;
 
 				bSkippingBlock = false;

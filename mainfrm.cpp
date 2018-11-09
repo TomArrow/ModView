@@ -725,8 +725,8 @@ void CMainFrame::OnUpdateFilePrintSetup(CCmdUI* pCmdUI)
 
 void CMainFrame::OnUpdateEditTestfunction(CCmdUI* pCmdUI) 
 {
-//	pCmdUI->Enable(!stricmp(scGetComputerName(),"SPOCK"));
-	pCmdUI->Enable(!stricmp(scGetUserName(),"scork"));
+//	pCmdUI->Enable(!_stricmp(scGetComputerName(),"SPOCK"));
+	pCmdUI->Enable(!_stricmp(scGetUserName(),"scork"));
 }
 
 
@@ -1154,7 +1154,7 @@ void CMainFrame::OnEditBoneFilterDECThreshhold()
 
 void CMainFrame::OnViewCrackviewer() 
 {
-	if (!stricmp(scGetUserName(),"scork"))
+	if (!_stricmp(scGetUserName(),"scork"))
 	{
 		AppVars.bCrackHighlight = !AppVars.bCrackHighlight;
 		m_splitter.Invalidate(false);
@@ -1164,7 +1164,7 @@ void CMainFrame::OnViewCrackviewer()
 void CMainFrame::OnUpdateViewCrackviewer(CCmdUI* pCmdUI) 
 {
 	pCmdUI->SetCheck(AppVars.bCrackHighlight);
-	pCmdUI->Enable(!stricmp(scGetUserName(),"scork"));
+	pCmdUI->Enable(!_stricmp(scGetUserName(),"scork"));
 }
 
 void CMainFrame::OnViewUnshadowablesurfaces() 

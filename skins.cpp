@@ -803,7 +803,7 @@ static void SkinSet_Validate_BuildList(StringSet_t &strUniqueSkinShaders, SkinSe
 		{
 			string strModelMaterial = (*itMaterialsReferenced);
 
-			if (!strModelMaterial.empty() && stricmp(strModelMaterial.c_str(),"[NoMaterial]"))
+			if (!strModelMaterial.empty() && _stricmp(strModelMaterial.c_str(),"[NoMaterial]"))
 			{
 				if (MaterialsDefinedInThisEthnicVariant.find(strModelMaterial) == MaterialsDefinedInThisEthnicVariant.end())
 				{
