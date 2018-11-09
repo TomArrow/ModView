@@ -305,9 +305,16 @@ bool OldSkins_Apply( ModelContainer_t *pContainer, LPCSTR psSkinName )
 //
 //				pContainer->MaterialBinds[psMaterialName] = uiBind;
 //			}
-			TextureHandle_t hTexture = Texture_Load(psShaderName);
-			GLuint uiBind = Texture_GetGLBind( hTexture );
-			pContainer->MaterialBinds[psMaterialName] = uiBind;
+			if ( strcmp(psShaderName, "*off") == 0 ) 
+			{ 
+				pContainer->MaterialBinds[psMaterialName] = (GLuint)-1; 
+			} 
+			else 
+			{ 				 
+				TextureHandle_t hTexture = Texture_Load(psShaderName); 
+				GLuint uiBind = Texture_GetGLBind( hTexture ); 
+				pContainer->MaterialBinds[psMaterialName] = uiBind; 
+			} 
 		}
 	}
 
