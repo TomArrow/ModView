@@ -330,7 +330,7 @@ void AppVars_OnceOnlyInit(void)
 	AppVars.bOriginLines		=	false;
 	AppVars.bBBox				=	false;
 	AppVars.bFloor				=	false;
-	AppVars.fFloorZ				=	-50;
+	AppVars.fFloorZ				=	-24;
 	AppVars.bRuler				=	false;
 	AppVars.bBoneHighlight		=	true;
 	AppVars.bBoneWeightThreshholdingActive = false;
@@ -2208,11 +2208,11 @@ static void ModelDraw_Floor( ModelContainer_t *pContainer, bool bDrawingForOrigi
 
 						if ((y&1)^(x&1))
 						{
-							glColor3ub(21,81,32);	// a sort of dirty yellow/green check
+							glColor3ub(125,125,125);	// a sort of dirty yellow/green check
 						}							
 						else
 						{
-							glColor3ub(125,131,18);	// ""
+							glColor3ub(100,100,100);	// ""
 						}
 
 						glBegin(GL_QUADS);
