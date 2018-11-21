@@ -5406,7 +5406,7 @@ bool Model_Save(LPCSTR psFullPathedFilename)
 	FILE *pFile = fopen(psFullPathedFilename, "wb");
 	if(!pFile)
 		return false;
-	FILE *flog = fopen( "C:\\modlog.txt", "a" );
+	//FILE *flog = fopen( "C:\\modlog.txt", "a" );
 
 	// Skipping thru the header at this point, because we have to change
 	// header values as we go thru the model
@@ -5557,10 +5557,12 @@ bool Model_Save(LPCSTR psFullPathedFilename)
 				assert( tempTex[0] > -32768.0f && tempTex[0] < 32767.0f );
 				assert( tempTex[1] > -32768.0f && tempTex[1] < 32767.0f );
 
+				/*
 				if (tempTex[0] < -32768.0f || tempTex[0] > 32767.0f)
 					fprintf( flog, "ERROR: UV overflow in %s [%f]\n", psFullPathedFilename, tempTex[0] );
 				if (tempTex[1] < -32768.0f || tempTex[1] > 32767.0f)
 					fprintf( flog, "ERROR: UV overflow in %s [%f]\n", psFullPathedFilename, tempTex[1] );
+				*/
 
 				mdxmVertexTexCoordComp_t tex;
 				tex.texCoords[0] = (short)( tempTex[0] );
@@ -5596,7 +5598,7 @@ bool Model_Save(LPCSTR psFullPathedFilename)
 		
 	fclose(pFile);
 
-	fclose( flog );
+	//fclose( flog );
 	return true;
 }
 
