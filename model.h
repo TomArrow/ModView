@@ -246,6 +246,7 @@ typedef struct
 	bool	bForceWrapWhenAnimating;
 	bool	bInterpolate;
 	bool	bUseAlpha;
+	bool	bUseAlphaMode2;
 	bool	bWireFrame;
 	bool	bBoneHighlight;
 	bool	bBoneWeightThreshholdingActive;

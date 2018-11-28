@@ -56,6 +56,8 @@ protected:
 	afx_msg void OnUpdateViewWireframe(CCmdUI* pCmdUI);
 	afx_msg void OnViewAlpha();
 	afx_msg void OnUpdateViewAlpha(CCmdUI* pCmdUI);
+	afx_msg void OnViewAlphaMode2();
+	afx_msg void OnUpdateViewAlphaMode2(CCmdUI* pCmdUI);
 	afx_msg void OnViewInterpolate();
 	afx_msg void OnUpdateViewInterpolate(CCmdUI* pCmdUI);
 	afx_msg void OnViewBilinear();

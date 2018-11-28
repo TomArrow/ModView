@@ -163,6 +163,7 @@ BEGIN
         MENUITEM SEPARATOR
         MENUITEM "... as WireFrame\tCTRL-W",    ID_VIEW_WIREFRAME
         MENUITEM "... using Alpha Blend\tCTRL-A", ID_VIEW_ALPHA
+		MENUITEM "... using Alpha Blend Mode 2\tCTRL-A", ID_VIEW_ALPHA_MODE
         MENUITEM "... using Interpolation\tCTRL-N", ID_VIEW_INTERPOLATE, CHECKED
         MENUITEM "... using Filtering\tCTRL-F", ID_VIEW_BILINEAR, CHECKED
         MENUITEM "... showing Origin lines\tCTRL-O", ID_VIEW_ORIGIN
@@ -770,6 +771,7 @@ BEGIN
     IDM_GLMSURFACE_NODESCENDANTS "Turns off all child surfaces"
     ID_VIEW_WIREFRAME       "Have a guess, go on..."
     ID_VIEW_ALPHA           "Show certain textures as transparent"
+	ID_VIEW_ALPHA_MODE      "Change between transparency mode 1 & 2"
     ID_VIEW_INTERPOLATE     "Lerp between frames"
 END
 

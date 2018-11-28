@@ -326,6 +326,7 @@ void AppVars_OnceOnlyInit(void)
 	AppVars.bBilinear			=	true;	
 	AppVars.bInterpolate		=	true;
 	AppVars.bUseAlpha			=	false;
+	AppVars.bUseAlphaMode2		=	false;
 	AppVars.bWireFrame			=	false;
 	AppVars.bOriginLines		=	false;
 	AppVars.bBBox				=	false;
@@ -388,6 +389,7 @@ void AppVars_WriteIdeal(void)
 		OUTBYTE(bOriginLines);
 		OUTBYTE(bBBox);
 		OUTBYTE(bUseAlpha);
+		OUTBYTE(bUseAlphaMode2);
 		OUTBYTE(bWireFrame);
 		OUTBYTE(_R);
 		OUTBYTE(_G);
@@ -508,6 +510,7 @@ void AppVars_ReadIdeal(void)
 				CHECKBOOL(bOriginLines);
 				CHECKBOOL(bBBox);
 				CHECKBOOL(bUseAlpha);
+				CHECKBOOL(bUseAlphaMode2);
 				CHECKBOOL(bWireFrame);
 				CHECKBYTE(_R);
 				CHECKBYTE(_G);
@@ -3384,7 +3387,16 @@ static void ModelDraw_InfoText_Header(void)
 
 	if (AppVars.bUseAlpha)
 	{
-		Text_DisplayFlat("( Alpha )", TextData.iTextX+(2*TEXT_WIDTH),1*TEXT_DEPTH, 128, 128, 128, false);
+		Text_DisplayFlat("( Transparency )", TextData.iTextX+(2*TEXT_WIDTH),1*TEXT_DEPTH, 128, 128, 128, false);
+	}
+
+	if (AppVars.bUseAlphaMode2 && AppVars.bUseAlpha)
+	{
+		Text_DisplayFlat("( Transparency Mode 2)", TextData.iTextX + (2 * TEXT_WIDTH), TextData.iTextY + (2.5 * TEXT_DEPTH), 128, 128, 128, false);
+	}
+	else if (!AppVars.bUseAlphaMode2 && AppVars.bUseAlpha)
+	{
+		Text_DisplayFlat("( Transparency Mode 1)", TextData.iTextX + (2 * TEXT_WIDTH), TextData.iTextY + (2.5 * TEXT_DEPTH), 128, 128, 128, false);
 	}
 
 
@@ -3536,13 +3548,25 @@ static void ModelList_Render_Actual(int iWindowWidth, int iWindowHeight)
 
 			if (AppVars.bUseAlpha && !AppVars.bWireFrame)
 			{
-				glEnable	(GL_BLEND);
-				glBlendFunc ( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+				glEnable(GL_BLEND);
+				glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);				
 			}
 			else
 			{
 				glDisable(GL_BLEND);
-			}		
+				glDisable(GL_ALPHA_TEST);
+			}
+
+			if (!AppVars.bUseAlphaMode2 && AppVars.bUseAlpha && !AppVars.bWireFrame)
+			{
+				glEnable(GL_ALPHA_TEST);
+				glAlphaFunc(GL_GREATER, 0.0f);
+			}
+			else if (AppVars.bUseAlphaMode2 && AppVars.bUseAlpha && !AppVars.bWireFrame)
+			{
+				glEnable(GL_ALPHA_TEST);
+				glAlphaFunc(GL_GEQUAL, 0.75f);
+			}
 		}
 
 		if (!Model_Loaded())

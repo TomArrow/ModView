@@ -59,6 +59,8 @@ BEGIN_MESSAGE_MAP(CMainFrame, CFrameWnd)
 	ON_UPDATE_COMMAND_UI(ID_VIEW_WIREFRAME, OnUpdateViewWireframe)
 	ON_COMMAND(ID_VIEW_ALPHA, OnViewAlpha)
 	ON_UPDATE_COMMAND_UI(ID_VIEW_ALPHA, OnUpdateViewAlpha)
+	ON_COMMAND(ID_VIEW_ALPHA_MODE, OnViewAlphaMode2)
+	ON_UPDATE_COMMAND_UI(ID_VIEW_ALPHA_MODE, OnUpdateViewAlphaMode2)
 	ON_COMMAND(ID_VIEW_INTERPOLATE, OnViewInterpolate)
 	ON_UPDATE_COMMAND_UI(ID_VIEW_INTERPOLATE, OnUpdateViewInterpolate)
 	ON_COMMAND(ID_VIEW_BILINEAR, OnViewBilinear)
@@ -310,6 +312,17 @@ void CMainFrame::OnViewAlpha()
 void CMainFrame::OnUpdateViewAlpha(CCmdUI* pCmdUI) 
 {
 	pCmdUI->SetCheck(AppVars.bUseAlpha);	
+}
+
+void CMainFrame::OnViewAlphaMode2()
+{
+	AppVars.bUseAlphaMode2 = !AppVars.bUseAlphaMode2;
+	m_splitter.Invalidate(false);
+}
+
+void CMainFrame::OnUpdateViewAlphaMode2(CCmdUI* pCmdUI)
+{
+	pCmdUI->SetCheck(AppVars.bUseAlphaMode2);
 }
 
 void CMainFrame::OnViewInterpolate() 
