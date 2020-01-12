@@ -169,6 +169,9 @@ protected:
 	afx_msg void OnUpdateViewTriindexes(CCmdUI* pCmdUI);
 	afx_msg void OnFileViewJk2Bots();
 	afx_msg void OnAnimationEndframe();
+	afx_msg void OnAnimation15FPS();
+	afx_msg void OnAnimation20FPS();
+	afx_msg void OnAnimation40FPS();
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 

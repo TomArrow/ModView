@@ -171,6 +171,9 @@ BEGIN_MESSAGE_MAP(CMainFrame, CFrameWnd)
 	ON_UPDATE_COMMAND_UI(ID_VIEW_TRIINDEXES, OnUpdateViewTriindexes)
 	ON_COMMAND(ID_FILE_VIEW_JK2_BOTS, OnFileViewJk2Bots)
 	ON_COMMAND(ID_ANIMATION_ENDFRAME, OnAnimationEndframe)
+	ON_COMMAND(ID_ANIMATION_15FPS, OnAnimation15FPS)
+	ON_COMMAND(ID_ANIMATION_20FPS, OnAnimation20FPS)
+	ON_COMMAND(ID_ANIMATION_40FPS, OnAnimation40FPS)
 	//}}AFX_MSG_MAP
 	ON_COMMAND(ID_FILE_BATCHCONVERT, OnFileBatchconvert)
 	END_MESSAGE_MAP()
@@ -1787,6 +1790,20 @@ void CMainFrame::OnAnimationEndframe()
 	ModelList_GoToEndFrame();
 }
 
+void CMainFrame::OnAnimation15FPS()
+{
+	AppVars.dAnimSpeed = 0.0666666666666667; //15 fps
+}
+
+void CMainFrame::OnAnimation20FPS()
+{
+	AppVars.dAnimSpeed = 0.05; //20 fps
+}
+
+void CMainFrame::OnAnimation40FPS()
+{
+	AppVars.dAnimSpeed = 0.025; //40 fps
+}
 
 #define sJK3BASEDIR "c:\\ja\\base\\"
 void CMainFrame::OnFileBatchconvert()

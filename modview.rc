@@ -214,6 +214,10 @@ BEGIN
         MENUITEM "... NextFrame (turns off animation and lerping)\t>", ID_ANIMATION_NEXTFRAME
         MENUITEM "... PrevFrame ( "" "" )\t<",  ID_ANIMATION_PREVFRAME
         MENUITEM SEPARATOR
+		MENUITEM "... Play at 15 FPS\t", ID_ANIMATION_15FPS
+		MENUITEM "... Play at 20 FPS\t", ID_ANIMATION_20FPS
+		MENUITEM "... Play at 40 FPS\t", ID_ANIMATION_40FPS
+		MENUITEM SEPARATOR
         MENUITEM "... Interpolation?\tCTRL-N",  ID_ANIMATION_LERPING, CHECKED
     END
     POPUP "&Help"

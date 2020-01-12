@@ -2967,15 +2967,16 @@ static Sequence_t *Stats_GetSequenceDisplayInfo(ModelContainer_t *pContainer, bo
 
 static LPCSTR Stats_GetVertInfo(int iVerts, int iTris, int iSurfs, int iXFormedG2Bones, int iRenderedBoneWeights, int iOmittedBoneWeights)
 {
-	return va("(V:%4d T:%4d S:%2d%s)",
+	return va("(Verts: %4d Tris: %4d Surfs: %2d)",
 					iVerts,
 						iTris, 
-							iSurfs, 
+							iSurfs/*, 
 							     (iXFormedG2Bones!=0)
 									?
-									va(" XF:%3d WT:%4d%s",iXFormedG2Bones,iRenderedBoneWeights,AppVars.bBoneWeightThreshholdingActive?va("+%d",iOmittedBoneWeights):"")
+									va(" XF: %3d WT: %4d%s",iXFormedG2Bones,iRenderedBoneWeights,AppVars.bBoneWeightThreshholdingActive?va("+%d",iOmittedBoneWeights):"")
 									:
 									""
+									*/
 				);
 }
 
@@ -4495,7 +4496,6 @@ void ModelList_GoToEndFrame()
 
 	ModelList_ForceRedraw();
 }
-
 
 typedef struct	// one-off struct for data passing during StepFrame recursion
 {

@@ -20,11 +20,12 @@ LPCSTR Sequence_CreateTreeName(Sequence_t *pSequence)
 
 	LPCSTR psSequenceName = (AppVars.bFullPathsInSequenceTreeitems && pSequence->sNameWithPath[0])? pSequence->sNameWithPath : Sequence_GetName(pSequence,true);//->sName;
 
-	str = va("%s ( %d..%d ) ( # = %d )",
+	str = va("%s ( Range: %d-%d, Frames: %d, FPS: %d )",
 			String_EnsureMinLength(psSequenceName, 16),
 					pSequence->iStartFrame, 
 						pSequence->iStartFrame + pSequence->iFrameCount - 1,
-								pSequence->iFrameCount
+								pSequence->iFrameCount,
+										pSequence->iFPS
 						);
 
 	if (pSequence->iLoopFrame != -1)

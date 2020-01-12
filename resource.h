@@ -179,6 +179,9 @@
 #define ID_SEQUENCES_SORTALPHABETICALLY 32936
 #define IDM_GLMSURFACE_CLEARROOT        32937
 #define ID_VIEW_ALPHA_MODE              32938
+#define ID_ANIMATION_15FPS		        32939
+#define ID_ANIMATION_20FPS	            32940
+#define ID_ANIMATION_40FPS	            32941
 
 // Next default values for new objects
 // 

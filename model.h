@@ -1,4 +1,4 @@
-// Filename:-	model.h
+﻿// Filename:-	model.h
 //
 
 
@@ -222,7 +222,7 @@ struct ModelContainer
 };
 
 
-const double ANIM_SLOWER = 1.3;
+const double ANIM_SLOWER = 1.1;
 const double ANIM_FASTER = 0.9;
 
 typedef struct
