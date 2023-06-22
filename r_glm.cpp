@@ -329,14 +329,18 @@ qboolean R_LoadMDXM( model_t *mod, void *buffer, const char *mod_name ) {
 			LL(surf->ofsHeader);
 			LL(surf->numBoneReferences);
 			LL(surf->ofsBoneReferences);
-										
+			
+			mdxmHierarchyOffsets_t *surfIndexes = (mdxmHierarchyOffsets_t *)((byte *)mod->mdxm + sizeof(mdxmHeader_t));
+			mdxmSurfHierarchy_t *surfIndex = (mdxmSurfHierarchy_t *)((byte *)surfIndexes + surfIndexes->offsets[surf->thisSurfaceIndex]);
+
 			if ( surf->numVerts > (bQ3RulesApply?SHADER_MAX_VERTEXES:ACTUAL_SHADER_MAX_VERTEXES) ) {
-				ri.Error (ERR_DROP, "R_LoadMDXM: %s has more than %i verts on a surface (%i)",
-					mod_name, (bQ3RulesApply?SHADER_MAX_VERTEXES:ACTUAL_SHADER_MAX_VERTEXES), surf->numVerts );
+				ri.Printf (PRINT_WARNING, "R_LoadMDXM: Surface %s has %i verts, which is more than the %i verts limit. This won't load in-game!",
+					surfIndex->name, surf->numVerts, (bQ3RulesApply?SHADER_MAX_VERTEXES:ACTUAL_SHADER_MAX_VERTEXES));
 			}
+
 			if ( surf->numTriangles*3 > (bQ3RulesApply?SHADER_MAX_INDEXES:ACTUAL_SHADER_MAX_INDEXES) ) {
-				ri.Error (ERR_DROP, "R_LoadMDXM: %s has more than %i triangles on a surface (%i)",
-					mod_name, (bQ3RulesApply?SHADER_MAX_INDEXES:ACTUAL_SHADER_MAX_INDEXES) / 3, surf->numTriangles );
+				ri.Printf (PRINT_WARNING, "R_LoadMDXM: Surface %s has %i triangles, which is more than the %i verts limit. This won't load in-game!",
+					surfIndex->name, surf->numTriangles, (bQ3RulesApply?SHADER_MAX_INDEXES:ACTUAL_SHADER_MAX_INDEXES) / 3);
 			}
 		
 			// change to surface identifier
