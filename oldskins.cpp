@@ -24,6 +24,7 @@
 //armor_chest,models/players/stormtrooper/torso_legs.tga
 //armor_neck_augment,models/players/stormtrooper/torso_legs.tga
 //body_torso,models/players/stormtrooper/torso_legs.tga
+//body_torso2,*off
 
 OldSkinSets_t OldSkinsFound;
 
@@ -514,10 +515,17 @@ bool OldSkins_Validate( ModelContainer_t *pContainer, int iSkinNumber )
 
 		if (uiGLBind == 0)
 		{
-			OutputDebugString("NOT FOUND\n");
+            if (strcmp(strShader.c_str(), "*off") == 0 )
+			{
+				// crap line, so ignore it...
+			} 
+			else 
+			{
+				OutputDebugString("NOT FOUND\n");
 			
-			strNotFoundList += strShader;
-			strNotFoundList += "\n";
+				strNotFoundList += strShader;
+				strNotFoundList += "\n";
+			}
 		}
 		else
 		{
@@ -575,12 +583,12 @@ bool OldSkins_Validate( ModelContainer_t *pContainer, int iSkinNumber )
 		{
 			if (GetYesNo(va("Some missing shader, some found, but list is > %d entries, send to Notepad?",MAX_BOX_LINES_HERE)))
 			{
-				SendStringToNotepad(va("Missing shaders:\n\n%s\n\nFound shaders:\n\n%s",strNotFoundList.c_str(),strFoundList.c_str()),"found_shaders.txt");
+				SendStringToNotepad(va("Missing or bad shaders:\n\n%s\n\nFound shaders:\n\n%s",strNotFoundList.c_str(),strFoundList.c_str()),"found_shaders.txt");
 			}
 		}
 		else
 		{
-			WarningBox(va("Missing shaders:\n\n%s\n\nFound shaders:\n\n%s",strNotFoundList.c_str(),strFoundList.c_str()));
+			WarningBox(va("Missing or bad shaders:\n\n%s\n\nFound shaders:\n\n%s",strNotFoundList.c_str(),strFoundList.c_str()));
 		}
 		bReturn = false;
 	}

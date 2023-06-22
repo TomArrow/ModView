@@ -1,6 +1,6 @@
-// Filename:-	script.cpp
+// Filename:-	skins.cpp 
 //
-// file to control model-loading scripts (scripts are purely a viewer convenience for multiple-bolt stuff)
+// module containing code for SoF2 style skins...
 //
 #include "stdafx.h"
 #include "includes.h"
