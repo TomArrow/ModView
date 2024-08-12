@@ -93,7 +93,7 @@ int Sequence_DeriveFromFrame( ModelContainer_t *pContainer, int iFrame )
 	return -1;
 }
 
-Sequence_t* Sequence_DeriveFromFrame( int iFrame, ModelContainer_t *pContainer )
+Sequence_t* Sequence_DeriveFromFrame( int iFrame, ModelContainer_t *pContainer, int* sequenceNum )
 {	
 	for (int i=0; i<pContainer->SequenceList.size(); i++)
 	{
@@ -101,6 +101,9 @@ Sequence_t* Sequence_DeriveFromFrame( int iFrame, ModelContainer_t *pContainer )
 
 		if (Sequence_FrameIsWithin(pSequence, iFrame))
 		{
+			if (sequenceNum) {
+				*sequenceNum = i;
+			}
 			return pSequence;
 		}
 	}

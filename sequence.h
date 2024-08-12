@@ -12,7 +12,7 @@
 LPCSTR		Sequence_CreateTreeName					(Sequence_t *pSequence);
 void		Sequence_Clear							(Sequence_t *pSequence);
 int			Sequence_GetIndex						(Sequence_t *pSequenceToFind, ModelContainer_t *pContainer );
-Sequence_t* Sequence_DeriveFromFrame				( int iFrame, ModelContainer_t *pContainer );
+Sequence_t* Sequence_DeriveFromFrame				( int iFrame, ModelContainer_t *pContainer, int* sequenceNum = NULL);
 // C++ can't overload by return only, so swap the args as well
 int			Sequence_DeriveFromFrame				( ModelContainer_t *pContainer, int iFrame );
 int			Sequence_ReturnLongestSequenceNameLength(ModelContainer_t *pContainer);

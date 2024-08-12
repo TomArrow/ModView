@@ -20,9 +20,10 @@
 //
 #include "model.h"
 #include <iostream>
+#include <fstream>
 
 
-
+static Sequence_t* Stats_GetSequenceDisplayInfo(ModelContainer_t* pContainer, bool bPrimary, byte* pR = NULL, byte* pG = NULL, byte* pB = NULL, bool* pLocked = NULL, int* sequenceNum = NULL);
 static int	Model_MultiSeq_GetSeqHint(ModelContainer_t *pContainer, bool bPrimary);
 static void Model_MultiSeq_SetSeqHint(ModelContainer_t *pContainer, bool bPrimary, int iHint);
 static bool Model_MultiSeq_EnsureSeqHintLegal(ModelContainer_t *pContainer, int iFrame, bool bPrimary);
@@ -2906,7 +2907,21 @@ static void ModelContainer_DrawTagSurfaceHighlights(ModelContainer_t *pContainer
 								vec[i][2] = itemMatrix.matrix[i + 8];
 								vec[i][3] = itemMatrix.matrix[i + 12];
 							}
-							std::cout << "test";
+
+							int sequenceNum;
+							Sequence_t* pSequence = Stats_GetSequenceDisplayInfo(pContainer, true,0,0,0,0,&sequenceNum);
+							int absoluteFrame = pContainer->iCurrentFrame_Primary;
+							int sequenceFrame = pContainer->iCurrentFrame_Primary - pSequence->iStartFrame;
+							int sequenceFrameCount = pSequence->iFrameCount;
+
+							ofstream animDumpFile;
+							animDumpFile.open("animdump.csv",ios::out| ios::app);
+							animDumpFile << pSequence->sName << ";" << sequenceNum << ";" << absoluteFrame << ";" << sequenceFrame << "/" << sequenceFrameCount << ";" << itemMatrix.matrix[0];
+							for (int i = 1; i < 16; i++) {
+								animDumpFile << ";" << itemMatrix.matrix[i];
+							}
+							animDumpFile << "\n";
+							animDumpFile.close();
 						}
 
 						// note special logic for first bool, in other words, if explicitly highlighting this surface, then draw 
@@ -2989,8 +3004,8 @@ static void ModelContainer_DrawBoneHighlights(ModelContainer_t *pContainer)
 
 
 
-static Sequence_t *Stats_GetSequenceDisplayInfo(ModelContainer_t *pContainer, bool bPrimary, byte *pR = NULL, byte *pG = NULL, byte *pB = NULL, bool *pLocked = NULL);
-static Sequence_t *Stats_GetSequenceDisplayInfo(ModelContainer_t *pContainer, bool bPrimary, byte *pR, byte *pG, byte *pB, bool *pLocked)
+
+static Sequence_t *Stats_GetSequenceDisplayInfo(ModelContainer_t *pContainer, bool bPrimary, byte *pR, byte *pG, byte *pB, bool *pLocked, int* sequenceNum)
 {
 	// return either the locked local frame number in red (if anim locking is on), or just the anim sequence name
 	//	if there's one corresponding to this...
@@ -3000,13 +3015,20 @@ static Sequence_t *Stats_GetSequenceDisplayInfo(ModelContainer_t *pContainer, bo
 	if (Model_MultiSeq_IsActive(pContainer, bPrimary))
 	{
 		int iSequenceNumber = Model_MultiSeq_SeqIndexFromFrame(pContainer, bPrimary ? pContainer->iCurrentFrame_Primary : pContainer->iCurrentFrame_Secondary, bPrimary, false );
+		if (sequenceNum) {
+			*sequenceNum = iSequenceNumber;
+		}
 		pLockedSequence		= (iSequenceNumber == -1) ? NULL : &pContainer->SequenceList[iSequenceNumber];
 	}
 	else
 	{
 		int iSequenceNumber = bPrimary ? pContainer->iSequenceLockNumber_Primary : pContainer->iSequenceLockNumber_Secondary;
+		if (sequenceNum) {
+			*sequenceNum = iSequenceNumber;
+		}
 		pLockedSequence		= (iSequenceNumber == -1) ? NULL : &pContainer->SequenceList[iSequenceNumber];
 	}
+
 
 	if (pLockedSequence)
 	{
@@ -3032,7 +3054,7 @@ static Sequence_t *Stats_GetSequenceDisplayInfo(ModelContainer_t *pContainer, bo
 		if ( pB)
 			*pB = 200;	// ...
 
-		pLockedSequence = Sequence_DeriveFromFrame( bPrimary ? pContainer->iCurrentFrame_Primary : pContainer->iCurrentFrame_Secondary, pContainer );
+		pLockedSequence = Sequence_DeriveFromFrame( bPrimary ? pContainer->iCurrentFrame_Primary : pContainer->iCurrentFrame_Secondary, pContainer, sequenceNum);
 	}
 
 	return pLockedSequence;
