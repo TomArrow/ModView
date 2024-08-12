@@ -157,6 +157,8 @@ protected:
 	afx_msg void OnUpdateViewCrackviewer(CCmdUI* pCmdUI);
 	afx_msg void OnViewUnshadowablesurfaces();
 	afx_msg void OnUpdateViewUnshadowablesurfaces(CCmdUI* pCmdUI);
+	afx_msg void OnViewSurfaceAnimationDataSave();
+	afx_msg void OnUpdateViewSurfaceAnimationDataSave(CCmdUI* pCmdUI);
 	afx_msg void OnFileViewSof2Npcs();
 	afx_msg void OnUpdateFileViewSof2Npcs(CCmdUI* pCmdUI);
 	afx_msg void OnEditAllowskeletonoverrides();

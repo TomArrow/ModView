@@ -265,6 +265,7 @@ typedef struct
 	bool	bFullPathsInSequenceTreeitems;
 	bool	bCrackHighlight;
 	bool	bShowUnshadowableSurfaces;
+	bool	bSaveSurfaceAnimationData;
 
 	int		iLOD;
 

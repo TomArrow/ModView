@@ -183,6 +183,7 @@ BEGIN
         MENUITEM "... using Forced-white textures (for crack-finding)\tCTRL-H", ID_VIEW_FORCEWHITE
         MENUITEM "... using auto Crack-Highlighter (experimental)\tCTRL-K", ID_VIEW_CRACKVIEWER
         MENUITEM "... showing unShadowable surfaces\t", ID_VIEW_UNSHADOWABLESURFACES
+        MENUITEM "... save animation data for highlighted surfaces\t", ID_VIEW_SAVESURFACEANIMATIONDATA
         MENUITEM "... showing all polys as double-sided", ID_VIEW_DOUBLESIDEDPOLYS, CHECKED
         MENUITEM SEPARATOR
         MENUITEM "Screenshot to file\tSHIFT-C", ID_VIEW_SCREENSHOT_FILE

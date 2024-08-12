@@ -182,6 +182,7 @@
 #define ID_ANIMATION_15FPS		        32939
 #define ID_ANIMATION_20FPS	            32940
 #define ID_ANIMATION_40FPS	            32941
+#define ID_VIEW_SAVESURFACEANIMATIONDATA	32942
 
 // Next default values for new objects
 // 

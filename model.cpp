@@ -19,6 +19,7 @@
 #include "skins.h"
 //
 #include "model.h"
+#include <iostream>
 
 
 
@@ -2495,6 +2496,69 @@ void PreRenderedMatrixPtrs_glMultiply(void)
 		glMultMatrixf(pMatrix->matrix);
 	}
 }
+/*
+const float s_flipMatrix[16] = {
+	// convert from our coordinate system (looking down X)
+	// to OpenGL's coordinate system (looking down -Z)
+	0, 0, -1, 0,
+	-1, 0, 0, 0,
+	0, 1, 0, 0,
+	0, 0, 0, 1
+};
+// this was attempt for reverse rowwise, not needed i guess?
+const float s_flipMatrixBack[16] = {
+	// From OpenGL's matrix to ours
+	0, -1, 0, 0,
+	0, 0, 1, 0,
+	-1, 0, 0, 0,
+	0, 0, 0, 1
+};*/
+const float s_flipMatrixCustom[16] = {
+	// seems like maybe q3 coordinate system isnt the same as modview, so do custom thing.
+	0, -1, 0, 0,
+	-1, 0, 0, 0,
+	0, 0, 1, 0,
+	0, 0, 0, 1
+};
+
+void myGlMultMatrix(const float* a, const float* b, float* out) {
+	int		i, j;
+
+	for (i = 0; i < 4; i++) {
+		for (j = 0; j < 4; j++) {
+			out[i * 4 + j] =
+				a[i * 4 + 0] * b[0 * 4 + j]
+				+ a[i * 4 + 1] * b[1 * 4 + j]
+				+ a[i * 4 + 2] * b[2 * 4 + j]
+				+ a[i * 4 + 3] * b[3 * 4 + j];
+		}
+	}
+}
+void PreRenderedMatrixPtrs_localGlMultiply(GLMatrix_t* targetMatrix, bool asQ3)
+{
+	// reverse-iterate matrix chain to do all transforms...
+	//
+	GLMatrix_t tmpMatrix;
+
+	for (int iMatrix = PreRenderedMatrixPtrs.size()-1; iMatrix>=0; iMatrix--)
+	{
+		// TODO idk if im using myGlMultMatrix equivalent to glMultMatrix, so if theres ever more than 1 matrix, double check that the order here is right
+		GLMatrix_t *pMatrix = &PreRenderedMatrixPtrs[iMatrix];
+
+		myGlMultMatrix(targetMatrix->matrix,pMatrix->matrix, tmpMatrix.matrix);
+		memcpy(targetMatrix,&tmpMatrix,sizeof(GLMatrix_t));
+	}
+	if (asQ3) {
+
+		myGlMultMatrix(targetMatrix->matrix, s_flipMatrixCustom, tmpMatrix.matrix);
+		memcpy(targetMatrix, &tmpMatrix, sizeof(GLMatrix_t));
+	}
+	//if (asQ3) {
+
+	//	myGlMultMatrix(targetMatrix->matrix, s_flipMatrix, tmpMatrix.matrix);
+	//	memcpy(targetMatrix, &tmpMatrix, sizeof(GLMatrix_t));
+	//}
+}
 
 // specialised use during render process only (assumes current valid GL modelview matrix)
 //
@@ -2829,6 +2893,21 @@ static void ModelContainer_DrawTagSurfaceHighlights(ModelContainer_t *pContainer
 						// bone wants to be highlighted, and isn't disabled by virtue of disabled parent surface...
 						//
 						PreRenderedMatrixPtrs_glMultiply();
+
+						if (AppVars.bSaveSurfaceAnimationData) {
+							GLMatrix_t itemMatrix;
+							memset(&itemMatrix, 0, sizeof(GLMatrix_t));
+							itemMatrix.matrix[0] = itemMatrix.matrix[5] = itemMatrix.matrix[10] = itemMatrix.matrix[15] = 1.0f; // identity as a starter
+							PreRenderedMatrixPtrs_localGlMultiply(&itemMatrix,true);
+							vec4_t vec[3];
+							for (int i = 0; i < 3; i++) {
+								vec[i][0] = itemMatrix.matrix[i];
+								vec[i][1] = itemMatrix.matrix[i + 4];
+								vec[i][2] = itemMatrix.matrix[i + 8];
+								vec[i][3] = itemMatrix.matrix[i + 12];
+							}
+							std::cout << "test";
+						}
 
 						// note special logic for first bool, in other words, if explicitly highlighting this surface, then draw 
 						//	as normal, else if highlighting all tags, then just do as smaller/dimmer...						

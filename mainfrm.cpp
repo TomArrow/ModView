@@ -159,6 +159,8 @@ BEGIN_MESSAGE_MAP(CMainFrame, CFrameWnd)
 	ON_UPDATE_COMMAND_UI(ID_VIEW_CRACKVIEWER, OnUpdateViewCrackviewer)
 	ON_COMMAND(ID_VIEW_UNSHADOWABLESURFACES, OnViewUnshadowablesurfaces)
 	ON_UPDATE_COMMAND_UI(ID_VIEW_UNSHADOWABLESURFACES, OnUpdateViewUnshadowablesurfaces)
+	ON_COMMAND(ID_VIEW_SAVESURFACEANIMATIONDATA, OnViewSurfaceAnimationDataSave)
+	ON_UPDATE_COMMAND_UI(ID_VIEW_SAVESURFACEANIMATIONDATA, OnUpdateViewSurfaceAnimationDataSave)
 	ON_COMMAND(ID_FILE_VIEW_SOF2_NPCS, OnFileViewSof2Npcs)
 	ON_UPDATE_COMMAND_UI(ID_FILE_VIEW_SOF2_NPCS, OnUpdateFileViewSof2Npcs)
 	ON_COMMAND(IDM_EDIT_ALLOWSKELETONOVERRIDES, OnEditAllowskeletonoverrides)
@@ -1192,6 +1194,16 @@ void CMainFrame::OnViewUnshadowablesurfaces()
 void CMainFrame::OnUpdateViewUnshadowablesurfaces(CCmdUI* pCmdUI) 
 {
 	pCmdUI->SetCheck( AppVars.bShowUnshadowableSurfaces );	
+}
+void CMainFrame::OnViewSurfaceAnimationDataSave() 
+{
+	AppVars.bSaveSurfaceAnimationData = !AppVars.bSaveSurfaceAnimationData;
+	m_splitter.Invalidate(false);
+}
+
+void CMainFrame::OnUpdateViewSurfaceAnimationDataSave(CCmdUI* pCmdUI)
+{
+	pCmdUI->SetCheck( AppVars.bSaveSurfaceAnimationData);
 }
 
 #define sSOF2BASEDIR "s:\\base\\"
