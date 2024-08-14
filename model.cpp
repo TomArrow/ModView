@@ -2863,7 +2863,13 @@ static void DrawTagOrigin(bool bHilitAsPure, LPCSTR psTagText /* can be NULL */)
 	glPopAttrib();
 }
 
-
+typedef struct surfaceBoltFrameInfo {
+	int frameNum;
+	float matrix[16];
+	//int derivedSequenceNum;
+	//int sequenceFrame;
+	//int sequenceFrameCount;
+};
 
 static void ModelContainer_DrawTagSurfaceHighlights(ModelContainer_t *pContainer)
 {	
@@ -2896,6 +2902,9 @@ static void ModelContainer_DrawTagSurfaceHighlights(ModelContainer_t *pContainer
 						PreRenderedMatrixPtrs_glMultiply();
 
 						if (AppVars.bSaveSurfaceAnimationData) {
+							static int lastFrame = -1;
+							static int dumpFileIndex = 0;
+
 							GLMatrix_t itemMatrix;
 							memset(&itemMatrix, 0, sizeof(GLMatrix_t));
 							itemMatrix.matrix[0] = itemMatrix.matrix[5] = itemMatrix.matrix[10] = itemMatrix.matrix[15] = 1.0f; // identity as a starter
@@ -2913,15 +2922,39 @@ static void ModelContainer_DrawTagSurfaceHighlights(ModelContainer_t *pContainer
 							int absoluteFrame = pContainer->iCurrentFrame_Primary;
 							int sequenceFrame = pContainer->iCurrentFrame_Primary - pSequence->iStartFrame;
 							int sequenceFrameCount = pSequence->iFrameCount;
-
-							ofstream animDumpFile;
-							animDumpFile.open("animdump.csv",ios::out| ios::app);
-							animDumpFile << pSequence->sName << ";" << sequenceNum << ";" << absoluteFrame << ";" << sequenceFrame << "/" << sequenceFrameCount << ";" << itemMatrix.matrix[0];
-							for (int i = 1; i < 16; i++) {
-								animDumpFile << ";" << itemMatrix.matrix[i];
+							
+							if (absoluteFrame < lastFrame) {
+								Model_StopAnim(); 
+								dumpFileIndex++;
 							}
-							animDumpFile << "\n";
-							animDumpFile.close();
+							else if (absoluteFrame > lastFrame+1) {
+								Model_StopAnim();
+								dumpFileIndex++;
+							}
+							
+							if (absoluteFrame != lastFrame) {
+								ofstream animDumpFile;
+								animDumpFile.open(va("animdump%d.csv", dumpFileIndex), ios::out | ios::app);
+								animDumpFile << pSequence->sName << ";" << sequenceNum << ";" << absoluteFrame << ";" << sequenceFrame << "/" << sequenceFrameCount << ";" << itemMatrix.matrix[0];
+								for (int i = 1; i < 16; i++) {
+									animDumpFile << ";" << itemMatrix.matrix[i];
+								}
+								animDumpFile << "\n";
+								animDumpFile.close();
+
+								ofstream animDumpFileBin;
+								animDumpFileBin.open(va("animdump%d.bin", dumpFileIndex), ios::out | ios::app | ios::binary);
+								surfaceBoltFrameInfo boltFrameInfo;
+								boltFrameInfo.frameNum = absoluteFrame;
+								memcpy(boltFrameInfo.matrix, itemMatrix.matrix, sizeof(boltFrameInfo.matrix));
+								animDumpFileBin.write((char*)&boltFrameInfo,sizeof(boltFrameInfo));
+								animDumpFileBin.close();
+							}
+							else {
+								// duplicated, ignore
+							}
+
+							lastFrame = absoluteFrame;
 						}
 
 						// note special logic for first bool, in other words, if explicitly highlighting this surface, then draw 
